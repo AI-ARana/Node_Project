@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  # database-server:
+  #   image: couchbase:latest
+  #   ports:
+  #     - 8091:8091
+  config-server:
+    build:
+      context: ./service.config
+      dockerfile: Dockerfile
+    volumes:
+      - ./service.config:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 5000:3000
+  house-registry:
+    build:
+      context: ./service.house.registry
+      dockerfile: Dockerfile
+    volumes:
+      - ./service.house.registry:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 5001:3001
+    depends_on:
+      - config-server
+  tenant-registry:
+    build:
+      context: ./service.tenant.registry
+      dockerfile: Dockerfile
+    volumes:
+      - ./service.tenant.registry:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 5002:8000
+    depends_on:
+      - house-registry
+      - config-server
+  landlord-registry:
+    build:
+      context: ./service.landlord.registry
+      dockerfile: Dockerfile
+    volumes:
+      - ./service.landlord.registry:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 5003:5003
+    depends_on:
+      - config-server

@@ -1,0 +1,28 @@
+{
+    "name": "nodejs-image-starter",
+    "version": "1.0.0",
+    "description": "tenant registry",
+    "author": "Daniel Olili <olilidaniel48@gmail.com>",
+    "license": "MIT",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js",
+        "test": "nyc mocha ./test/*/*"
+    },
+    "keywords": [
+        "nodejs",
+        "express"
+    ],
+    "dependencies": {
+        "axios": "^0.19.0",
+        "couchbase": "^2.6.9",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "mocha": "^6.2.2",
+        "mock-couch": "^0.1.11",
+        "nyc": "^14.1.1",
+        "sinon": "^7.5.0"
+    }
+}
